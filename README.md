@@ -1,6 +1,6 @@
 # Spotify Clone
 
-This is just a project for me to practice ReactJS and state management skills with Redux.
+This is just a tutorial project for me to practice ReactJS and state management skills with Redux.
 
 # API Source
 
