@@ -1,9 +1,9 @@
-import axios from "axios";
-import React, { useEffect } from "react";
-import styled from "styled-components";
-import { useStateProvider } from "../utils/StateProvider";
-import { AiFillClockCircle } from "react-icons/ai";
-import { reducerCases } from "../utils/Constants";
+import axios from 'axios';
+import React, { useEffect } from 'react';
+import styled from 'styled-components';
+import { useStateProvider } from '../utils/StateProvider';
+import { AiFillClockCircle } from 'react-icons/ai';
+import { reducerCases } from '../utils/Constants';
 export default function Body({ headerBackground }) {
   const [{ token, selectedPlaylist, selectedPlaylistId }, dispatch] =
     useStateProvider();
@@ -14,16 +14,16 @@ export default function Body({ headerBackground }) {
         `https://api.spotify.com/v1/playlists/${selectedPlaylistId}`,
         {
           headers: {
-            Authorization: "Bearer " + token,
-            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
           },
         }
       );
       const selectedPlaylist = {
         id: response.data.id,
         name: response.data.name,
-        description: response.data.description.startsWith("<a")
-          ? ""
+        description: response.data.description.startsWith('<a')
+          ? ''
           : response.data.description,
         image: response.data.images[0].url,
         tracks: response.data.tracks.items.map(({ track }) => ({
@@ -60,8 +60,8 @@ export default function Body({ headerBackground }) {
       },
       {
         headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + token,
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + token,
         },
       }
     );
@@ -81,7 +81,7 @@ export default function Body({ headerBackground }) {
   const msToMinutesAndSeconds = (ms) => {
     var minutes = Math.floor(ms / 60000);
     var seconds = ((ms % 60000) / 1000).toFixed(0);
-    return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+    return minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
   };
   return (
     <Container headerBackground={headerBackground}>
@@ -142,8 +142,7 @@ export default function Body({ headerBackground }) {
                           context_uri,
                           track_number
                         )
-                      }
-                    >
+                      }>
                       <div className="col">
                         <span>{index + 1}</span>
                       </div>
@@ -208,7 +207,7 @@ const Container = styled.div`
       padding: 1rem 3rem;
       transition: 0.3s ease-in-out;
       background-color: ${({ headerBackground }) =>
-        headerBackground ? "#000000dc" : "none"};
+        headerBackground ? '#000000dc' : 'none'};
     }
     .tracks {
       margin: 0 2rem;

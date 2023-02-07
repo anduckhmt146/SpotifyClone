@@ -1,22 +1,22 @@
-import React, { useEffect } from "react";
-import styled from "styled-components";
-import axios from "axios";
-import { useStateProvider } from "../utils/StateProvider";
-import { reducerCases } from "../utils/Constants";
+import React, { useEffect } from 'react';
+import styled from 'styled-components';
+import axios from 'axios';
+import { useStateProvider } from '../utils/StateProvider';
+import { reducerCases } from '../utils/Constants';
 export default function CurrentTrack() {
   const [{ token, currentPlaying }, dispatch] = useStateProvider();
   useEffect(() => {
     const getCurrentTrack = async () => {
       const response = await axios.get(
-        "https://api.spotify.com/v1/me/player/currently-playing",
+        'https://api.spotify.com/v1/me/player/currently-playing',
         {
           headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + token,
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
           },
         }
       );
-      if (response.data !== "") {
+      if (response.data !== '') {
         const currentPlaying = {
           id: response.data.item.id,
           name: response.data.item.name,
@@ -40,7 +40,7 @@ export default function CurrentTrack() {
           <div className="track__info">
             <h4 className="track__info__track__name">{currentPlaying.name}</h4>
             <h6 className="track__info__track__artists">
-              {currentPlaying.artists.join(", ")}
+              {currentPlaying.artists.join(', ')}
             </h6>
           </div>
         </div>

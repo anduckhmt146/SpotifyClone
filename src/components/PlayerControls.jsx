@@ -1,30 +1,31 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 import {
   BsFillPlayCircleFill,
   BsFillPauseCircleFill,
   BsShuffle,
-} from "react-icons/bs";
-import { CgPlayTrackNext, CgPlayTrackPrev } from "react-icons/cg";
-import { FiRepeat } from "react-icons/fi";
-import { useStateProvider } from "../utils/StateProvider";
-import axios from "axios";
-import { reducerCases } from "../utils/Constants";
+} from 'react-icons/bs';
+import { CgPlayTrackNext, CgPlayTrackPrev } from 'react-icons/cg';
+import { FiRepeat } from 'react-icons/fi';
+import { useStateProvider } from '../utils/StateProvider';
+import axios from 'axios';
+import { reducerCases } from '../utils/Constants';
 export default function PlayerControls() {
   const [{ token, playerState }, dispatch] = useStateProvider();
 
   const changeState = async () => {
-    const state = playerState ? "pause" : "play";
+    const state = playerState ? 'pause' : 'play';
     await axios.put(
       `https://api.spotify.com/v1/me/player/${state}`,
       {},
       {
         headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + token,
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
         },
       }
     );
+
     dispatch({
       type: reducerCases.SET_PLAYER_STATE,
       playerState: !playerState,
@@ -36,22 +37,22 @@ export default function PlayerControls() {
       {},
       {
         headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + token,
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
       }
     );
     dispatch({ type: reducerCases.SET_PLAYER_STATE, playerState: true });
     const response1 = await axios.get(
-      "https://api.spotify.com/v1/me/player/currently-playing",
+      'https://api.spotify.com/v1/me/player/currently-playing',
       {
         headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + token,
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
       }
     );
-    if (response1.data !== "") {
+    if (response1.data !== '') {
       const currentPlaying = {
         id: response1.data.item.id,
         name: response1.data.item.name,
@@ -69,7 +70,7 @@ export default function PlayerControls() {
         <BsShuffle />
       </div>
       <div className="previous">
-        <CgPlayTrackPrev onClick={() => changeTrack("previous")} />
+        <CgPlayTrackPrev onClick={() => changeTrack('previous')} />
       </div>
       <div className="state">
         {playerState ? (
@@ -79,7 +80,7 @@ export default function PlayerControls() {
         )}
       </div>
       <div className="next">
-        <CgPlayTrackNext onClick={() => changeTrack("next")} />
+        <CgPlayTrackNext onClick={() => changeTrack('next')} />
       </div>
       <div className="repeat">
         <FiRepeat />
